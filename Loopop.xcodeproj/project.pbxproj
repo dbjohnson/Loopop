@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		932EE4F01C5D1B24006B212F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE4EF1C5D1B24006B212F /* AppDelegate.swift */; };
-		932EE4F21C5D1B24006B212F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 932EE4F11C5D1B24006B212F /* GameScene.sks */; };
 		932EE4F41C5D1B24006B212F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE4F31C5D1B24006B212F /* GameScene.swift */; };
 		932EE4F61C5D1B24006B212F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE4F51C5D1B24006B212F /* GameViewController.swift */; };
 		932EE4F91C5D1B24006B212F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 932EE4F71C5D1B24006B212F /* Main.storyboard */; };
@@ -16,6 +15,7 @@
 		932EE4FE1C5D1B24006B212F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 932EE4FC1C5D1B24006B212F /* LaunchScreen.storyboard */; };
 		932EE5091C5D1B24006B212F /* LoopopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE5081C5D1B24006B212F /* LoopopTests.swift */; };
 		932EE5141C5D1B24006B212F /* LoopopUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE5131C5D1B24006B212F /* LoopopUITests.swift */; };
+		932EE5291C5F074C006B212F /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 932EE5281C5F074C006B212F /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,7 +38,6 @@
 /* Begin PBXFileReference section */
 		932EE4EC1C5D1B24006B212F /* Loopop.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Loopop.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		932EE4EF1C5D1B24006B212F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		932EE4F11C5D1B24006B212F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		932EE4F31C5D1B24006B212F /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		932EE4F51C5D1B24006B212F /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		932EE4F81C5D1B24006B212F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -51,6 +50,7 @@
 		932EE50F1C5D1B24006B212F /* LoopopUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LoopopUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		932EE5131C5D1B24006B212F /* LoopopUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoopopUITests.swift; sourceTree = "<group>"; };
 		932EE5151C5D1B24006B212F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		932EE5281C5F074C006B212F /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +81,7 @@
 		932EE4E31C5D1B24006B212F = {
 			isa = PBXGroup;
 			children = (
+				932EE5281C5F074C006B212F /* README.md */,
 				932EE4EE1C5D1B24006B212F /* Loopop */,
 				932EE5071C5D1B24006B212F /* LoopopTests */,
 				932EE5121C5D1B24006B212F /* LoopopUITests */,
@@ -102,7 +103,6 @@
 			isa = PBXGroup;
 			children = (
 				932EE4EF1C5D1B24006B212F /* AppDelegate.swift */,
-				932EE4F11C5D1B24006B212F /* GameScene.sks */,
 				932EE4F31C5D1B24006B212F /* GameScene.swift */,
 				932EE4F51C5D1B24006B212F /* GameViewController.swift */,
 				932EE4F71C5D1B24006B212F /* Main.storyboard */,
@@ -199,6 +199,7 @@
 				TargetAttributes = {
 					932EE4EB1C5D1B24006B212F = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = GZE2G8998M;
 					};
 					932EE5031C5D1B24006B212F = {
 						CreatedOnToolsVersion = 7.2;
@@ -235,7 +236,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				932EE4F21C5D1B24006B212F /* GameScene.sks in Resources */,
 				932EE4FE1C5D1B24006B212F /* LaunchScreen.storyboard in Resources */,
 				932EE4FB1C5D1B24006B212F /* Assets.xcassets in Resources */,
 				932EE4F91C5D1B24006B212F /* Main.storyboard in Resources */,
@@ -265,6 +265,7 @@
 			files = (
 				932EE4F41C5D1B24006B212F /* GameScene.swift in Sources */,
 				932EE4F61C5D1B24006B212F /* GameViewController.swift in Sources */,
+				932EE5291C5F074C006B212F /* README.md in Sources */,
 				932EE4F01C5D1B24006B212F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,10 +408,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Loopop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.johnson.Loopop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -418,10 +421,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Loopop/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.johnson.Loopop;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

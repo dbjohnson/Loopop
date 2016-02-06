@@ -21,9 +21,6 @@ class GameViewController: UIViewController {
         skView.showsFPS = true
         skView.showsNodeCount = false
         
-        /* Sprite Kit applies additional optimizations to improve rendering performance */
-//        skView.ignoresSiblingOrder = true
-        
         /* Set the scale mode to scale to fit the window */
         scene = GameScene(size: skView.bounds.size)
         scene.scaleMode = .AspectFill
@@ -53,10 +50,15 @@ class GameViewController: UIViewController {
     }
 
     @IBAction func tapped(sender: UITapGestureRecognizer) {
-        self.scene.newBalloon(sender.locationInView(self.view))
+        if sender.numberOfTouches() == 1 {
+            self.scene.movePopper(sender.locationInView(self.view))
+        }
+        else {
+            self.scene.newBalloon(sender.locationInView(self.view), pressState: sender.state, immediate: true)
+        }
     }
 
-    @IBAction func panned(sender: UIPanGestureRecognizer) {
-        self.scene.movePopper(sender.locationInView(self.view))
+    @IBAction func longPress(sender: UILongPressGestureRecognizer) {
+        self.scene.newBalloon(sender.locationInView(self.view), pressState: sender.state)
     }
 }

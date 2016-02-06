@@ -19,20 +19,26 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <connections>
-                            <outletCollection property="gestureRecognizers" destination="Xbg-Ed-jkc" appends="YES" id="UIh-DT-3hp"/>
                             <outletCollection property="gestureRecognizers" destination="fus-aq-eN0" appends="YES" id="wDJ-zQ-yd1"/>
+                            <outletCollection property="gestureRecognizers" destination="bmx-st-TfD" appends="YES" id="dye-ev-p7H"/>
+                            <outletCollection property="gestureRecognizers" destination="SOk-yz-KuT" appends="YES" id="qGi-6W-2QS"/>
                         </connections>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
-                <panGestureRecognizer delaysTouchesBegan="YES" minimumNumberOfTouches="1" id="Xbg-Ed-jkc">
-                    <connections>
-                        <action selector="panned:" destination="BV1-FR-VrT" id="0PH-2j-pme"/>
-                    </connections>
-                </panGestureRecognizer>
                 <tapGestureRecognizer id="fus-aq-eN0">
                     <connections>
                         <action selector="tapped:" destination="BV1-FR-VrT" id="Swa-2I-apR"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.20000000000000001" id="bmx-st-TfD">
+                    <connections>
+                        <action selector="longPress:" destination="BV1-FR-VrT" id="C6m-oM-Ord"/>
+                    </connections>
+                </pongPressGestureRecognizer>
+                <tapGestureRecognizer numberOfTouchesRequired="2" id="SOk-yz-KuT">
+                    <connections>
+                        <action selector="tapped:" destination="BV1-FR-VrT" id="flH-zq-e5m"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

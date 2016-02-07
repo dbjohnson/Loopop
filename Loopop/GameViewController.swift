@@ -61,4 +61,8 @@ class GameViewController: UIViewController {
     @IBAction func longPress(sender: UILongPressGestureRecognizer) {
         self.scene.newBalloon(sender.locationInView(self.view), pressState: sender.state)
     }
+    
+    @IBAction func panned(sender: UIPanGestureRecognizer) {
+        self.scene.movePopper(sender.locationInView(self.view))        
+    }
 }

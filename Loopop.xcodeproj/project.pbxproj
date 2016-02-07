@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		932EE4F01C5D1B24006B212F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE4EF1C5D1B24006B212F /* AppDelegate.swift */; };
-		932EE4F41C5D1B24006B212F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE4F31C5D1B24006B212F /* GameScene.swift */; };
 		932EE4F61C5D1B24006B212F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE4F51C5D1B24006B212F /* GameViewController.swift */; };
 		932EE4F91C5D1B24006B212F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 932EE4F71C5D1B24006B212F /* Main.storyboard */; };
 		932EE4FB1C5D1B24006B212F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 932EE4FA1C5D1B24006B212F /* Assets.xcassets */; };
@@ -16,6 +15,7 @@
 		932EE5091C5D1B24006B212F /* LoopopTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE5081C5D1B24006B212F /* LoopopTests.swift */; };
 		932EE5141C5D1B24006B212F /* LoopopUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE5131C5D1B24006B212F /* LoopopUITests.swift */; };
 		932EE5291C5F074C006B212F /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 932EE5281C5F074C006B212F /* README.md */; };
+		9330D4271C6689C500D642D7 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 932EE4F31C5D1B24006B212F /* GameScene.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -263,9 +263,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				932EE4F41C5D1B24006B212F /* GameScene.swift in Sources */,
 				932EE4F61C5D1B24006B212F /* GameViewController.swift in Sources */,
 				932EE5291C5F074C006B212F /* README.md in Sources */,
+				9330D4271C6689C500D642D7 /* GameScene.swift in Sources */,
 				932EE4F01C5D1B24006B212F /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -499,6 +499,7 @@
 				932EE51A1C5D1B24006B212F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		932EE51B1C5D1B24006B212F /* Build configuration list for PBXNativeTarget "LoopopTests" */ = {
 			isa = XCConfigurationList;
@@ -507,6 +508,7 @@
 				932EE51D1C5D1B24006B212F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		932EE51E1C5D1B24006B212F /* Build configuration list for PBXNativeTarget "LoopopUITests" */ = {
 			isa = XCConfigurationList;
@@ -515,6 +517,7 @@
 				932EE5201C5D1B24006B212F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

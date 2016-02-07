@@ -8,49 +8,70 @@
 
 import SpriteKit
 import AVFoundation
+import GameplayKit
 
 
-// global var so it doesn't go out of scope (and stop playing) as soon as we pop a baloon
-var audioPlayer: AVAudioPlayer?
+let random = GKRandomSource()
+let gusts = GKGaussianDistribution(randomSource: random, mean: 0, deviation: 10)
+let noise = GKGaussianDistribution(randomSource: random, mean: 0, deviation: 3)
+var wind = gusts.nextInt()
+
+
+class SoundManager: NSObject {
+    var player: AVAudioPlayer!
+    
+    init(soundAssetName: String, loop: Bool = false) {
+        do {
+            try self.player = AVAudioPlayer(data: NSDataAsset(name: soundAssetName)!.data)
+            if loop {
+                self.player.numberOfLoops = -1 // loop indefinitely
+            }
+        } catch {
+            print("No sound found")
+        }
+        super.init()
+    }
+}
+
+
+// global so audio player doesn't go out of scope (and stop playing) as soon as we pop a balloon
+let popPlayer = SoundManager(soundAssetName: "Pop")
 
 
 class Balloon: SKSpriteNode {
-    let popSound = NSDataAsset(name: "Pop")!
-    let blowSound = NSDataAsset(name: "Blow")!
+    var inflating = false
+    let blowPlayer = SoundManager(soundAssetName: "Blow", loop: true)
     
     func inflate() {
-        self.playSound(blowSound)
-        let action = SKAction.scaleBy(1.5, duration: 1)
-        self.runAction(SKAction.repeatActionForever(action))
+        self.inflating = true
+        self.blowPlayer.player.play()
+        
+        // try to make the inflation look ~natural, and match the length
+        // of the breath sound
+        let totalDuration = blowPlayer.player.duration
+        let fast = SKAction.scaleBy(1.5, duration: totalDuration/3)
+        let med = SKAction.scaleBy(1.3, duration: totalDuration/3)
+        let slow = SKAction.scaleBy(1.02, duration: totalDuration/3)
+        let sequence = SKAction.sequence([fast, med, slow])
+        self.runAction(SKAction.repeatActionForever(sequence))
     }
     
-    func floatAway() {
+    func tieOff() {
+        self.inflating = false
+        self.blowPlayer.player.stop()
+        self.float()
+    }
+    
+    func float(dx: Int = wind + noise.nextInt(),
+               dy: Int = 30 + noise.nextInt()) {
         self.removeAllActions()
-        if let ap = audioPlayer {
-            ap.stop()
-        }
-        let dx = CGFloat(arc4random_uniform(20))
-        let dy = CGFloat(arc4random_uniform(50))
-        let action = SKAction.moveBy(CGVectorMake(dx, dy), duration: 1)
+        let action = SKAction.moveBy(CGVectorMake(CGFloat(dx), CGFloat(dy)), duration: 1)
         self.runAction(SKAction.repeatActionForever(action))
     }
     
     func pop() {
-        self.playSound(self.popSound)
+        popPlayer.player.play()
         self.removeFromParent()
-    }
-    
-    func playSound(soundAsset: NSDataAsset) {
-        do {
-            audioPlayer = try AVAudioPlayer(data: soundAsset.data)
-            if soundAsset == self.blowSound {
-                audioPlayer!.numberOfLoops = -1
-            }
-            audioPlayer!.prepareToPlay()
-            audioPlayer!.play()
-        } catch {
-            print("No sound found")
-        }
     }
     
 }
@@ -62,22 +83,34 @@ class GameScene: SKScene {
     var popper: SKSpriteNode!
     
     override func didMoveToView(view: SKView) {
-        self.anchorPoint = CGPointMake(0, 0)
-        let background = SKSpriteNode(imageNamed:"Background")
+        let background = SKSpriteNode(imageNamed: "Background")
         background.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-        background.size = self.frame.size;
+        background.size = self.frame.size
         self.addChild(background)
         
-        self.popper = SKSpriteNode(imageNamed:"Pencil")
+        self.popper = SKSpriteNode(imageNamed: "Pencil")
         self.popper.anchorPoint = CGPointMake(0.5, 1.0)
         self.popper.xScale = 0.15
         self.popper.yScale = 0.15
         self.popper.position = background.position
-        self.popper.zPosition = 1000
+        self.popper.zPosition = 1000 // keep popper above all other sprites
         self.addChild(popper)
     }
 
     override func update(currentTime: CFTimeInterval) {
+        // occasionally update the wind speed that controls the balloon drift
+        if arc4random_uniform(100) > 95 {
+            wind += gusts.nextInt()
+            if abs(wind) > 40 {
+                wind = 40 * Int(sign(Float(wind)))
+            }
+            for balloon: Balloon in self.balloons() {
+                if balloon.inflating == false {
+                    balloon.float()
+                }
+            }
+        }
+        
         for balloon: Balloon in self.balloons() {
             if balloon.containsPoint(self.popper.position) {
                 balloon.pop()
@@ -110,8 +143,8 @@ class GameScene: SKScene {
             balloon.yScale = 0.15
             balloon.position = self.convertPointToView(location)
             balloon.inflate()
-            if immediate == true {
-                NSTimer.scheduledTimerWithTimeInterval(0.5, target: balloon, selector: Selector("floatAway"), userInfo: nil, repeats: false)
+            if immediate {
+                NSTimer.scheduledTimerWithTimeInterval(0.5, target: balloon, selector: Selector("tieOff"), userInfo: nil, repeats: false)
             }
             self.addChild(balloon)
         }
@@ -119,7 +152,7 @@ class GameScene: SKScene {
             let arr = self.balloons()
             if arr.count > 0 {
                 let balloon = arr[arr.count - 1]
-                balloon.floatAway()
+                balloon.tieOff()
             }
         }
 

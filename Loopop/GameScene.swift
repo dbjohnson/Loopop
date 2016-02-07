@@ -11,12 +11,6 @@ import AVFoundation
 import GameplayKit
 
 
-let random = GKRandomSource()
-let gusts = GKGaussianDistribution(randomSource: random, mean: 0, deviation: 10)
-let noise = GKGaussianDistribution(randomSource: random, mean: 0, deviation: 3)
-var wind = gusts.nextInt()
-
-
 class SoundManager: NSObject {
     var player: AVAudioPlayer!
     
@@ -34,8 +28,15 @@ class SoundManager: NSObject {
 }
 
 
-// global so audio player doesn't go out of scope (and stop playing) as soon as we pop a balloon
+// global pop sound player so audio player doesn't go out of scope (and stop playing) as soon as we pop a balloon
 let popPlayer = SoundManager(soundAssetName: "Pop")
+
+// global wind -- affects the drift of all balloons
+let gusts = GKGaussianDistribution(randomSource: GKRandomSource(), mean: 0, deviation: 10)
+var wind = gusts.nextInt()
+
+// global noise - add a bit of character to each balloon/s drift
+let noise = GKGaussianDistribution(randomSource: GKRandomSource(), mean: 0, deviation: 3)
 
 
 class Balloon: SKSpriteNode {
@@ -79,7 +80,6 @@ class Balloon: SKSpriteNode {
 class GameScene: SKScene {
     let popperAssets = ["Beak", "Carrot", "Knife", "Mountain", "Needle", "Pencil", "Scissors", "Sword"]
     let balloonAssets = ["Heart", "Purple", "Pink", "Blue", "Green", "Yellow"]
-    
     var popper: SKSpriteNode!
     
     override func didMoveToView(view: SKView) {

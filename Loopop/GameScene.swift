@@ -77,10 +77,35 @@ class Balloon: SKSpriteNode {
     
 }
 
+class Cloud: SKSpriteNode {
+    var age = 0
+    
+    func float(dx: Int = (wind + noise.nextInt()) / 2,
+               frame: CGRect) {
+            self.removeAllActions()
+            let y = CGFloat(arc4random_uniform(UInt32(frame.height) / 2)) + frame.height / CGFloat(2.0)
+            let x = dx > 0 ? 0 : frame.width
+            if (dx > 0) {
+                self.anchorPoint = CGPointMake(1, 1)
+            }
+            else {
+                self.anchorPoint = CGPointMake(0, 1)
+            }
+                
+            self.position = CGPointMake(x, y)
+            let action = SKAction.moveBy(CGVectorMake(CGFloat(dx), 0.0), duration: 1)
+            self.runAction(SKAction.repeatActionForever(action))
+    }
+}
+
+
 class GameScene: SKScene {
     let popperAssets = ["Beak", "Carrot", "Knife", "Mountain", "Needle", "Pencil", "Scissors", "Sword"]
     let balloonAssets = ["Heart", "Purple", "Pink", "Blue", "Green", "Yellow"]
+    let cloudAssets = ["cloud1", "cloud2", "cloud3", "cloud4"]
+
     var popper: SKSpriteNode!
+    var sun: SKSpriteNode!
     
     override func didMoveToView(view: SKView) {
         let background = SKSpriteNode(imageNamed: "Background")
@@ -95,9 +120,37 @@ class GameScene: SKScene {
         self.popper.position = background.position
         self.popper.zPosition = 1000 // keep popper above all other sprites
         self.addChild(popper)
+        
+        self.sun = SKSpriteNode(imageNamed: "sun")
+        self.sun.xScale = 0.5
+        self.sun.yScale = 0.5
+        self.sun.position = CGPointMake(self.frame.width * 0.1, self.frame.height * 0.9)
+        self.sun.zPosition = 0 // keep sun below all other sprites
+        let spin = SKAction.rotateByAngle(6.14, duration: 60)
+        self.sun.runAction(SKAction.repeatActionForever(spin))
+        self.addChild(sun)
+        
     }
 
     override func update(currentTime: CFTimeInterval) {
+        for balloon: Balloon in self.balloons() {
+            if balloon.containsPoint(self.popper.position) {
+                balloon.pop()
+            }
+            else if !self.frame.intersects(balloon.frame) {
+                balloon.removeFromParent()
+            }
+        }
+        
+        
+        for cloud: Cloud in self.clouds() {
+            cloud.age += 1
+            if !self.frame.intersects(cloud.frame) && cloud.age > 10 {
+                cloud.removeFromParent()
+            }
+            
+        }
+        
         // occasionally update the wind speed that controls the balloon drift
         if arc4random_uniform(100) > 95 {
             wind += gusts.nextInt()
@@ -111,16 +164,18 @@ class GameScene: SKScene {
             }
         }
         
-        for balloon: Balloon in self.balloons() {
-            if balloon.containsPoint(self.popper.position) {
-                balloon.pop()
-            }
-            else if !self.frame.intersects(balloon.frame) {
-                balloon.removeFromParent()
-            }
+        // occasionally add a new cloud
+        if arc4random_uniform(100) >= 99 && self.clouds().count < 5 {
+            let idx = Int(arc4random_uniform(UInt32(self.cloudAssets.count)))
+            let asset = self.cloudAssets[idx]
+            let c = Cloud(imageNamed: asset)
+            c.xScale = 0.25
+            c.yScale = 0.25
+            c.float(frame: frame)
+            self.addChild(c)
         }
     }
-
+    
     func movePopper(location: CGPoint) {
         self.popper.position = self.convertPointToView(location)
         for balloon: Balloon in self.balloons() {
@@ -134,6 +189,10 @@ class GameScene: SKScene {
         return self.children.flatMap{$0 as? Balloon}
     }
 
+    func clouds() -> Array<Cloud> {
+        return self.children.flatMap{$0 as? Cloud}
+    }
+    
     func newBalloon(location: CGPoint, pressState: UIGestureRecognizerState, immediate: Bool = false) {
         if pressState == UIGestureRecognizerState.Began || immediate == true {
             let balloonIdx = Int(arc4random_uniform(UInt32(self.balloonAssets.count)))

@@ -124,7 +124,7 @@ class GameScene: SKScene {
         self.sun = SKSpriteNode(imageNamed: "sun")
         self.sun.xScale = 0.5
         self.sun.yScale = 0.5
-        self.sun.position = CGPointMake(self.frame.width * 0.1, self.frame.height * 0.9)
+        self.sun.position = CGPointMake(self.frame.width * 0.9, self.frame.height * 0.9)
         self.sun.zPosition = 0 // keep sun below all other sprites
         let spin = SKAction.rotateByAngle(6.14, duration: 60)
         self.sun.runAction(SKAction.repeatActionForever(spin))
